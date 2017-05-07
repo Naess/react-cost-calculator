@@ -1,0 +1,17 @@
+{
+  "Model": {
+    "options": {
+      "LX": 18740,
+      "EX": 21140,
+      "EX-T": 21500
+    },
+    "default": "LX"
+  },
+  "Powertrain": {
+    "options": {
+      "6-Speed Manual": 0,
+      "CVT": 800
+    },
+    "default": "6-Speed Manual"
+  }
+}

@@ -1,0 +1,29 @@
+.Calculator {
+  text-align: center;
+  width: 80%;
+  margin: 10px auto;
+  border: 2px solid #aaa;
+}
+
+.Calculator-header {
+  background-color: #7c868d;
+  padding: 10px;
+  color: #333f4f;
+}
+
+.Calculator-logo {
+  width: 28px;
+}
+
+.Calculator-intro {
+  font-size: large;
+  padding: 0 20px;
+}
+
+.Row {
+  margin: 20px auto;
+}
+
+.Section-label {
+  font-weight: bold;
+}
