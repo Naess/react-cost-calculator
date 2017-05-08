@@ -7,12 +7,10 @@ import Dropdown from './Dropdown.js'
 import Radio from './Radio.js'
 import Results from './Results.js'
 
-const options = require('../../options-config.json')
-
 class Calculator extends Component {
-
   constructor(props) {
     super(props)
+    this.options = require('../../options-config.json')
     let elements = this.getElementDefaults()
     let total = this.calculateTotal(elements)
 
@@ -30,14 +28,14 @@ class Calculator extends Component {
   calculateTotal(stateElements) {
     const INITIAL_VALUE = 0
     return Object.entries(stateElements)
-      .map(([name, value]) => options[name]['options'][value])
+      .map(([name, value]) => this.options[name]['options'][value])
       .reduce((acc, value) => acc + value, INITIAL_VALUE)
   }
 
   getElementDefaults() {
     let elementDefaults = {}
-    Object.keys(options).forEach((option) =>
-      elementDefaults[option] = options[option]['default'])
+    Object.keys(this.options).forEach((option) =>
+      elementDefaults[option] = this.options[option]['default'])
 
     return elementDefaults
   }
@@ -59,16 +57,17 @@ class Calculator extends Component {
         <Dropdown title='Model:'
                   unique='Model'
                   onUpdate={this.updateTotal}
-                  options={options['Model']['options']}
+                  options={this.options['Model']['options']}
                   default={this.state.elements['Model']} />
 
         <Radio title='Powertrain:'
                unique='Powertrain'
                onUpdate={this.updateTotal}
-               options={options['Powertrain']['options']}
+               options={this.options['Powertrain']['options']}
                default={this.state.elements['Powertrain']} />
 
         <Results title='Total:' total={this.state.total} />
+
       </div>
     )
   }
