@@ -5,6 +5,7 @@ import '../css/Calculator.css'
 
 import Dropdown from './Dropdown.js'
 import Radio from './Radio.js'
+import Checkbox from './Checkbox.js'
 import Results from './Results.js'
 
 class Calculator extends Component {
@@ -28,14 +29,19 @@ class Calculator extends Component {
   calculateTotal(stateElements) {
     const INITIAL_VALUE = 0
     return Object.entries(stateElements)
-      .map(([name, value]) => this.options[name]['options'][value])
+      .map(([name, value]) => value)
       .reduce((acc, value) => acc + value, INITIAL_VALUE)
   }
 
   getElementDefaults() {
     let elementDefaults = {}
-    Object.keys(this.options).forEach((option) =>
-      elementDefaults[option] = this.options[option]['default'])
+
+    for (let option in this.options) {
+      let elem = this.options[option]
+      let elemDefault = elem['options'][elem.default] || 0
+      // Assign element name to it's total value: { Model: 18740 }
+      elementDefaults[option] = elemDefault
+    }
 
     return elementDefaults
   }
@@ -58,13 +64,18 @@ class Calculator extends Component {
                   unique='Model'
                   onUpdate={this.updateTotal}
                   options={this.options['Model']['options']}
-                  default={this.state.elements['Model']} />
+                  default={this.options['Model']['default']} />
 
         <Radio title='Powertrain:'
                unique='Powertrain'
                onUpdate={this.updateTotal}
                options={this.options['Powertrain']['options']}
-               default={this.state.elements['Powertrain']} />
+               default={this.options['Powertrain']['default']} />
+
+        <Checkbox title='Extras:'
+               unique='Extras'
+               onUpdate={this.updateTotal}
+               options={this.options['Extras']['options']} />
 
         <Results title='Total:' total={this.state.total} />
 

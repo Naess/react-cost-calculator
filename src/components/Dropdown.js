@@ -8,11 +8,11 @@ class Dropdown extends Component {
   }
 
   getOptions() {
-      return this.props.options ? Object.keys(this.props.options) : []
+      return this.props.options ? Object.entries(this.props.options) : []
   }
 
   handleChange(e) {
-    this.props.onUpdate(e.target.value, this.props.unique)
+    this.props.onUpdate(parseInt(e.target.value, 10), this.props.unique)
   }
 
   render() {
@@ -20,9 +20,9 @@ class Dropdown extends Component {
       <div className='Row'>
         <label className='Section-label'>{this.props.title}</label>
         <select defaultValue={this.props.default} onChange={this.handleChange}>
-          {this.getOptions().map((optionName) =>
+          {this.getOptions().map(([optionName, optionValue]) =>
             <option key={optionName}
-                    value={optionName}>{optionName}</option>
+                    value={optionValue}>{optionName}</option>
           )}
         </select>
       </div>

@@ -1,5 +1,6 @@
 {
   "Model": {
+    "type": "dropdown",
     "options": {
       "LX": 18740,
       "EX": 21140,
@@ -8,10 +9,19 @@
     "default": "LX"
   },
   "Powertrain": {
+    "type": "radio",
     "options": {
       "6-Speed Manual": 0,
       "CVT": 800
     },
     "default": "6-Speed Manual"
+  },
+  "Extras": {
+    "type": "checkbox",
+    "options": {
+      "Body Side Molding": 217,
+      "Car Cover": 230,
+      "Decklid Spoiler": 299
+    }
   }
 }

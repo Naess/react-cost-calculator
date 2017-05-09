@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 
-class Radio extends Component {
+class Checkbox extends Component {
 
   constructor(props) {
     super(props)
+    this.state = { total: 0 }
     this.handleChange = this.handleChange.bind(this)
   }
 
@@ -12,7 +13,13 @@ class Radio extends Component {
   }
 
   handleChange(e) {
-    this.props.onUpdate(parseInt(e.target.value, 10), this.props.unique)
+    const updateValue = parseInt(e.target.value, 10)
+    const newTotal = e.target.checked ?
+                  this.state.total + updateValue :
+                  this.state.total - updateValue
+
+    this.setState({ total: newTotal })
+    this.props.onUpdate(newTotal, this.props.unique)
   }
 
   render() {
@@ -21,11 +28,10 @@ class Radio extends Component {
         <label className='Section-label'>{this.props.title}</label>
           {this.getOptions().map(([optionName, optionValue]) =>
             <div key={optionName}>
-              <input type='radio'
+              <input type='checkbox'
                      onClick={this.handleChange}
                      name={this.props.unique}
-                     value={optionValue}
-                     defaultChecked={this.props.default === optionName}/>
+                     value={optionValue}/>
               <label>{optionName}</label>
             </div>
           )}
@@ -34,4 +40,4 @@ class Radio extends Component {
   }
 }
 
-export default Radio
+export default Checkbox
