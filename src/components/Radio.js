@@ -7,8 +7,16 @@ class Radio extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
+  getTitle() {
+      return this.props.config.title || ''
+  }
+
   getOptions() {
-      return this.props.options ? Object.entries(this.props.options) : []
+      return this.props.config.options ? Object.entries(this.props.config.options) : []
+  }
+
+  getDefault() {
+      return this.props.config.default || ''
   }
 
   handleChange(e) {
@@ -18,14 +26,14 @@ class Radio extends Component {
   render() {
     return (
       <div className='Row'>
-        <label className='Section-label'>{this.props.title}</label>
+        <h3 className='Section-title'>{this.getTitle()}</h3>
           {this.getOptions().map(([optionName, optionValue]) =>
             <div key={optionName}>
               <input type='radio'
                      onClick={this.handleChange}
                      name={this.props.unique}
                      value={optionValue}
-                     defaultChecked={this.props.default === optionName}/>
+                     defaultChecked={this.getDefault() === optionName}/>
               <label>{optionName}</label>
             </div>
           )}

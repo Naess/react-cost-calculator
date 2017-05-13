@@ -8,15 +8,19 @@ class Checkbox extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
+  getTitle() {
+      return this.props.config.title || ''
+  }
+
   getOptions() {
-      return this.props.options ? Object.entries(this.props.options) : []
+      return this.props.config.options ? Object.entries(this.props.config.options) : []
   }
 
   handleChange(e) {
     const updateValue = parseInt(e.target.value, 10)
     const newTotal = e.target.checked ?
-                  this.state.total + updateValue :
-                  this.state.total - updateValue
+                     this.state.total + updateValue :
+                     this.state.total - updateValue
 
     this.setState({ total: newTotal })
     this.props.onUpdate(newTotal, this.props.unique)
@@ -25,7 +29,7 @@ class Checkbox extends Component {
   render() {
     return (
       <div className='Row'>
-        <label className='Section-label'>{this.props.title}</label>
+        <h3 className='Section-title'>{this.getTitle()}</h3>
           {this.getOptions().map(([optionName, optionValue]) =>
             <div key={optionName}>
               <input type='checkbox'

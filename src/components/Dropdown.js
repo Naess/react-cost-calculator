@@ -7,8 +7,16 @@ class Dropdown extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
+  getTitle() {
+      return this.props.config.title || ''
+  }
+
   getOptions() {
-      return this.props.options ? Object.entries(this.props.options) : []
+      return this.props.config.options ? Object.entries(this.props.config.options) : []
+  }
+
+  getDefault() {
+      return this.props.config.default || ''
   }
 
   handleChange(e) {
@@ -18,8 +26,8 @@ class Dropdown extends Component {
   render() {
     return (
       <div className='Row'>
-        <label className='Section-label'>{this.props.title}</label>
-        <select defaultValue={this.props.default} onChange={this.handleChange}>
+        <h3 className='Section-title'>{this.getTitle()}</h3>
+        <select defaultValue={this.getDefault()} onChange={this.handleChange}>
           {this.getOptions().map(([optionName, optionValue]) =>
             <option key={optionName}
                     value={optionValue}>{optionName}</option>

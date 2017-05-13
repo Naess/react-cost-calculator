@@ -7,43 +7,49 @@ import Dropdown from './Dropdown.js'
 import Radio from './Radio.js'
 import Checkbox from './Checkbox.js'
 import Results from './Results.js'
+import Slider from './Slider.js'
 
 class Calculator extends Component {
   constructor(props) {
     super(props)
     this.options = require('../../options-config.json')
-    let elements = this.getElementDefaults()
-    let total = this.calculateTotal(elements)
+    let elems = this.getElementDefaults()
+    let total = this.calculateTotal(elems)
 
-    this.state = { total: total, elements: elements}
+    this.state = { total: total, elements: elems }
     this.updateTotal = this.updateTotal.bind(this)
   }
 
   updateTotal(newValue, caller) {
-    const newStateElements = Object.assign(this.state.elements, { [caller]: newValue })
-    const newTotal = this.calculateTotal(newStateElements)
+    const newStateElems = Object.assign(this.state.elements, { [caller]: newValue })
+    const newTotal = this.calculateTotal(newStateElems)
 
-    this.setState({ elements: newStateElements, total: newTotal })
+    this.setState({ elements: newStateElems, total: newTotal })
   }
 
-  calculateTotal(stateElements) {
+  calculateTotal(stateElems) {
     const INITIAL_VALUE = 0
-    return Object.entries(stateElements)
+    return Object.entries(stateElems)
       .map(([name, value]) => value)
       .reduce((acc, value) => acc + value, INITIAL_VALUE)
   }
 
   getElementDefaults() {
-    let elementDefaults = {}
-
+    let elemDefaults = {}
     for (let option in this.options) {
       let elem = this.options[option]
-      let elemDefault = elem['options'][elem.default] || 0
-      // Assign element name to it's total value: { Model: 18740 }
-      elementDefaults[option] = elemDefault
+      elemDefaults[option] = this.getElementDefault(elem)
     }
+    return elemDefaults
+  }
 
-    return elementDefaults
+  getElementDefault(elem) {
+    if (elem['type'].toLowerCase() === 'slider') {
+      return elem['default'] * elem['conversionRate']
+    }
+    else {
+      return elem['options'][elem.default] || 0
+    }
   }
 
   render() {
@@ -60,22 +66,21 @@ class Calculator extends Component {
           based on a number of inputted variables and other stored values.
         </p>
 
-        <Dropdown title='Model:'
-                  unique='Model'
-                  onUpdate={this.updateTotal}
-                  options={this.options['Model']['options']}
-                  default={this.options['Model']['default']} />
+        <Dropdown unique='model'
+                  config={this.options['model']}
+                  onUpdate={this.updateTotal} />
 
-        <Radio title='Powertrain:'
-               unique='Powertrain'
-               onUpdate={this.updateTotal}
-               options={this.options['Powertrain']['options']}
-               default={this.options['Powertrain']['default']} />
+        <Radio unique='powertrain'
+               config={this.options['powertrain']}
+               onUpdate={this.updateTotal} />
 
-        <Checkbox title='Extras:'
-               unique='Extras'
-               onUpdate={this.updateTotal}
-               options={this.options['Extras']['options']} />
+        <Checkbox unique='extras'
+                  config={this.options['extras']}
+                  onUpdate={this.updateTotal}/>
+
+        <Slider unique='mpg'
+                config={this.options['mpg']}
+                onUpdate={this.updateTotal} />
 
         <Results title='Total:' total={this.state.total} />
 

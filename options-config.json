@@ -1,5 +1,6 @@
 {
-  "Model": {
+  "model": {
+    "title": "Model",
     "type": "dropdown",
     "options": {
       "LX": 18740,
@@ -8,7 +9,8 @@
     },
     "default": "LX"
   },
-  "Powertrain": {
+  "powertrain": {
+    "title": "Powertrain",
     "type": "radio",
     "options": {
       "6-Speed Manual": 0,
@@ -16,12 +18,21 @@
     },
     "default": "6-Speed Manual"
   },
-  "Extras": {
+  "extras": {
+    "title": "Extras",
     "type": "checkbox",
     "options": {
       "Body Side Molding": 217,
       "Car Cover": 230,
       "Decklid Spoiler": 299
     }
+  },
+  "mpg": {
+    "title": "MPG",
+    "type": "slider",
+    "min": 5,
+    "max": 60,
+    "default": 30,
+    "conversionRate": 2 
   }
 }

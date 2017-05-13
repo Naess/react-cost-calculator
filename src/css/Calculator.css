@@ -21,9 +21,9 @@
 }
 
 .Row {
-  margin: 20px auto;
+  margin: 35px auto;
 }
 
-.Section-label {
-  font-weight: bold;
+.Section-title {
+  margin-bottom: 15px;
 }
