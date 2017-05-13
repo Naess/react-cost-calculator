@@ -12,7 +12,7 @@ import Slider from './Slider.js'
 class Calculator extends Component {
   constructor(props) {
     super(props)
-    this.options = require('../../options-config.json')
+    this.elements = require('../../elements-config.json')
     let elems = this.getElementDefaults()
     let total = this.calculateTotal(elems)
 
@@ -36,9 +36,9 @@ class Calculator extends Component {
 
   getElementDefaults() {
     let elemDefaults = {}
-    for (let option in this.options) {
-      let elem = this.options[option]
-      elemDefaults[option] = this.getElementDefault(elem)
+    for (let element in this.elements) {
+      let elem = this.elements[element]
+      elemDefaults[element] = this.getElementDefault(elem)
     }
     return elemDefaults
   }
@@ -68,19 +68,19 @@ class Calculator extends Component {
           </p>
         </div>
         <Dropdown unique='model'
-                  config={this.options['model']}
+                  config={this.elements['model']}
                   onUpdate={this.updateTotal} />
 
         <Radio unique='powertrain'
-               config={this.options['powertrain']}
+               config={this.elements['powertrain']}
                onUpdate={this.updateTotal} />
 
         <Checkbox unique='extras'
-                  config={this.options['extras']}
+                  config={this.elements['extras']}
                   onUpdate={this.updateTotal}/>
 
         <Slider unique='mpg'
-                config={this.options['mpg']}
+                config={this.elements['mpg']}
                 onUpdate={this.updateTotal} />
 
         <Results title='Total:' total={this.state.total} />

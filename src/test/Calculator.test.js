@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import Calculator from '../components/Calculator'
 import { shallow, mount } from 'enzyme';
 
-const testOptions = {
+const testElements = {
   "model": {
     "title": "Model",
     "type": "dropdown",
@@ -56,7 +56,7 @@ describe('Calculator', () => {
         extras: 230,
         mpg: 60
       }
-      const options = calculator.instance().options = testOptions
+      const options = calculator.instance().options = testElements
 
       const caller = 'model'
       const newValue = 21140
@@ -95,9 +95,9 @@ describe('Calculator', () => {
   })
 
   describe('getElementDefaults', () => {
-    it('gets the elements with default from the options', () => {
+    it('gets the elements with default from the element config', () => {
       const calculator = shallow(<Calculator />)
-      calculator.instance().options = testOptions
+      calculator.instance().elements = testElements
 
       const defaults = calculator.instance().getElementDefaults()
       expect(defaults).toMatchObject({
@@ -112,7 +112,7 @@ describe('Calculator', () => {
   describe('getElementDefault', () => {
     it('returns default value for an element with a default', () => {
       const calculator = shallow(<Calculator />)
-      calculator.instance().options = testOptions
+      calculator.instance().elements = testElements
 
       const defaultValue = calculator.instance().getElementDefault({
         title: 'Powertrain',
@@ -128,7 +128,7 @@ describe('Calculator', () => {
 
     it('returns default value based on conversion rate for a slider element', () => {
       const calculator = shallow(<Calculator />)
-      calculator.instance().options = testOptions
+      calculator.instance().options = testElements
 
       const defaultValue = calculator.instance().getElementDefault({
         title: 'MPG',
@@ -143,7 +143,7 @@ describe('Calculator', () => {
 
     it('returns the 0 for an element without a default', () => {
       const calculator = shallow(<Calculator />)
-      calculator.instance().options = testOptions
+      calculator.instance().options = testElements
 
       const defaultValue = calculator.instance().getElementDefault({
         title: 'Extras',
