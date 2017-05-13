@@ -9,11 +9,11 @@ Demo: https://naess.github.io/react-cost-calculator/
 - Run `npm start` to run the Webpack dev server. A new tab should open with the app running at http://localhost:3000/.
 
 ### Customizing:
-There's a file called `options-config.json` which stores the options and default values for each item in the form. To add new elements, just add them to this file and include the component to the render function in `Calculator.js`.
+There's a file called `elements-config.json` which stores the elements configurations for each item in the form. To add new elements, just add them to this file and include the components in the render function in `Calculator.js`.
 
-Here is an example of an element in `options-config.json`:
+Here is an example of an element in `elements-config.json`:
 ```javascript
-"model": {
+"model": { // This key must be unique
   "title": "Model", // Displayed as section header
   "type": "dropdown", // dropdown | checkbox | radio | slider
   "options": { // Map of option:value
@@ -26,8 +26,8 @@ Here is an example of an element in `options-config.json`:
 ```
 This will then be defined in `Calculator.js` as:
 ```javascript
-<Dropdown unique='model' // This must match the option key used below
-          config={this.options['model']}
+<Dropdown unique='model' // This must match the element key used below
+          config={this.elements['model']}
           onUpdate={this.updateTotal} />
 ```
 
