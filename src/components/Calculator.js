@@ -61,11 +61,12 @@ class Calculator extends Component {
             &nbsp; Cost Calculator
           </h1>
         </div>
-        <p className='Calculator-intro'>
-          A calculator built to give a user the ability to generate a total value
-          based on a number of inputted variables and other stored values.
-        </p>
-
+        <div className='Row'>
+          <p className='Calculator-intro'>
+            A flexible and configurable cost calculator that updates the total
+             in real-time as the user changes input values.
+          </p>
+        </div>
         <Dropdown unique='model'
                   config={this.options['model']}
                   onUpdate={this.updateTotal} />

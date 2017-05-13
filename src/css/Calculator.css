@@ -2,13 +2,15 @@
   text-align: center;
   width: 80%;
   margin: 10px auto;
-  border: 2px solid #aaa;
+  border: 1px solid #e4e6e8;
+  color: #333f4f;
+  max-width: 900px;
 }
 
 .Calculator-header {
-  background-color: #7c868d;
+  background-color: #bdc2c6;
   padding: 10px;
-  color: #333f4f;
+
 }
 
 .Calculator-logo {
@@ -17,13 +19,38 @@
 
 .Calculator-intro {
   font-size: large;
-  padding: 0 20px;
+  padding: 0 15px;
 }
 
 .Row {
-  margin: 35px auto;
+  margin: 0px auto;
+  padding: 30px 0;
+}
+
+.Row:nth-child(odd) {
+  background-color: #f1f2f3;
 }
 
 .Section-title {
-  margin-bottom: 15px;
+  margin: 0 0 5px 0;
+}
+
+.Element-item {
+  margin: 6px 0;
+}
+
+/* DROPDOWN */
+select {
+  padding: 3px;
+}
+
+/* SLIDER */
+input[type=range] {
+  width: 60%;
+}
+
+.Slider-label {
+  vertical-align: 30%;
+  margin: 0 6px;
+  font-weight: bold;
 }

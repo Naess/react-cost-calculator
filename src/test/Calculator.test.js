@@ -58,7 +58,7 @@ describe('Calculator', () => {
       }
       const options = calculator.instance().options = testOptions
 
-      const caller = "model"
+      const caller = 'model'
       const newValue = 21140
 
       calculator.instance().updateTotal(newValue, caller)
@@ -115,13 +115,13 @@ describe('Calculator', () => {
       calculator.instance().options = testOptions
 
       const defaultValue = calculator.instance().getElementDefault({
-        "title": "Powertrain",
-        "type": "radio",
-        "options": {
-          "6-Speed Manual": 0,
-          "CVT": 800
+        title: 'Powertrain',
+        type: 'radio',
+        options: {
+          '6-Speed Manual': 0,
+          'CVT': 800
         },
-        "default": "CVT"
+        default: 'CVT'
       })
       expect(defaultValue).toBe(800)
     })
@@ -131,12 +131,12 @@ describe('Calculator', () => {
       calculator.instance().options = testOptions
 
       const defaultValue = calculator.instance().getElementDefault({
-        "title": "MPG",
-        "type": "slider",
-        "min": 5,
-        "max": 60,
-        "default": 30,
-        "conversionRate": 2
+        title: 'MPG',
+        type: 'slider',
+        min: 5,
+        max: 60,
+        default: 30,
+        conversionRate: 2
       })
       expect(defaultValue).toBe(60)
     })
@@ -146,12 +146,12 @@ describe('Calculator', () => {
       calculator.instance().options = testOptions
 
       const defaultValue = calculator.instance().getElementDefault({
-        "title": "Extras",
-        "type": "checkbox",
-        "options": {
-          "Body Side Molding": 217,
-          "Car Cover": 230,
-          "Decklid Spoiler": 299
+        title: 'Extras',
+        type: 'checkbox',
+        options: {
+          'Body Side Molding': 217,
+          'Car Cover': 230,
+          'Decklid Spoiler': 299
         }
       })
       expect(defaultValue).toBe(0)

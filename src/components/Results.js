@@ -6,7 +6,7 @@ class Results extends Component {
   render() {
     return (
       <div className="Row">
-        <h3 className='Section-title'>{this.props.title}</h3>
+        <h3 className='Section-title Element-item'>{this.props.title}</h3>
         <strong>{formatDollars(this.props.total)}</strong>
       </div>
     );

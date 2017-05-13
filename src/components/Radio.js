@@ -28,7 +28,7 @@ class Radio extends Component {
       <div className='Row'>
         <h3 className='Section-title'>{this.getTitle()}</h3>
           {this.getOptions().map(([optionName, optionValue]) =>
-            <div key={optionName}>
+            <div className='Element-item' key={optionName}>
               <input type='radio'
                      onClick={this.handleChange}
                      name={this.props.unique}

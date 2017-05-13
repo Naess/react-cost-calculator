@@ -40,15 +40,17 @@ class Slider extends Component {
     return (
       <div className='Row'>
         <h3 className='Section-title'>{this.getTitle()}</h3>
-        <label>{this.getMin()}</label>
-        <input type='range'
-               min={this.getMin()}
-               max={this.getMax()}
-               step={this.getStep()}
-               defaultValue={this.getDefault()}
-               onChange={this.handleChange}>
-        </input>
-        <label>{this.getMax()}</label>
+        <div className='Element-item'>
+          <label className='Slider-label'>{this.getMin()}</label>
+          <input type='range'
+                 min={this.getMin()}
+                 max={this.getMax()}
+                 step={this.getStep()}
+                 defaultValue={this.getDefault()}
+                 onChange={this.handleChange}>
+          </input>
+          <label className='Slider-label'>{this.getMax()}</label>
+        </div>
       </div>
     );
   }

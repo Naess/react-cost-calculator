@@ -1,4 +1,4 @@
-A flexible calculator that updates the total in real-time as the user changes input values.
+A flexible and configurable cost calculator that updates the total in real-time as the user changes input values.
 
 *To install:*
 - Clone or download the code

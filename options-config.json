@@ -32,7 +32,7 @@
     "type": "slider",
     "min": 5,
     "max": 60,
-    "default": 30,
-    "conversionRate": 2 
+    "default": 33,
+    "conversionRate": 2
   }
 }

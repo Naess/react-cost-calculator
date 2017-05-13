@@ -27,7 +27,9 @@ class Dropdown extends Component {
     return (
       <div className='Row'>
         <h3 className='Section-title'>{this.getTitle()}</h3>
-        <select defaultValue={this.getDefault()} onChange={this.handleChange}>
+        <select className='Element-item'
+                defaultValue={this.getDefault()}
+                onChange={this.handleChange}>
           {this.getOptions().map(([optionName, optionValue]) =>
             <option key={optionName}
                     value={optionValue}>{optionName}</option>
