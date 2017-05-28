@@ -12,13 +12,14 @@ import Slider from './Slider.js'
 class Calculator extends Component {
   constructor(props) {
     super(props)
-    this.config = require('../../elements-config.json')
+    this.config = this.assignElemIds(require('../../elements-config.json'))
     let elems = this.getElementDefaults()
     let total = this.calculateTotal(elems)
 
     this.state = { total: total, elements: elems }
     this.updateTotal = this.updateTotal.bind(this)
 
+    // Used for dynamically rendering components
     this.components = {
         dropdown: Dropdown,
         radio: Radio,
@@ -26,6 +27,14 @@ class Calculator extends Component {
         results: Results,
         slider: Slider
     }
+  }
+
+  assignElemIds(config) {
+    config.elements.forEach((elem, i) => {
+      elem.id = i
+      config.elements[i] = elem
+    })
+    return config
   }
 
   updateTotal(newValue, caller) {
@@ -44,10 +53,10 @@ class Calculator extends Component {
 
   getElementDefaults() {
     let elemDefaults = {}
-    this.config.elements.forEach((element) => {
+    this.config.elements.forEach((element) =>
       elemDefaults[element.id] = this.getElementDefault(element)
-    })
-    return elemDefaults;
+    )
+    return elemDefaults
   }
 
   getElementDefault(elem) {

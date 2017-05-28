@@ -10,12 +10,11 @@ Demo: https://naess.github.io/react-cost-calculator/
 - Run `npm test` to run the tests
 
 ### Customizing:
-There's a file called `elements-config.json` which stores the element configurations for each item in the form. To add new elements, just add them to this file.
+There's a file called `elements-config.json`, which stores the element configurations for each item in the form. To add new elements, just add them to this file. They are displayed in the order that they are added to the config.
 
 Here is an example of an element in `elements-config.json`:
 ```javascript
 {
-  "id": 1, // This id must be unique
   "title": "Model", // Displayed as section header
   "type": "dropdown", // dropdown | checkbox | radio | slider
   "options": {  // Map of option:value
@@ -27,13 +26,11 @@ Here is an example of an element in `elements-config.json`:
 }
 ```
 
-There are 4 element-type options:
+There are 4 element-type options, and they can all be used as many times as needed:
 - Dropdown
 - Radio buttons
 - Checkboxes
 - Slider
-
-They can all be used as many times as needed as long as they're all defined with a unique id in `elements-config.json`.
 
 ### Building:
 Run `npm run build` to create a `build` folder, which is ready for deploy. This is built on create-react-app, so more details can be found here: https://github.com/facebookincubator/create-react-app
