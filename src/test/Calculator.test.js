@@ -102,21 +102,6 @@ describe('Calculator', () => {
     })
   })
 
-  describe('getElementDefaults', () => {
-    it('gets the elements with default from the element config', () => {
-      const calculator = shallow(<Calculator />)
-      calculator.instance().config = testElements
-
-      const defaults = calculator.instance().getElementDefaults()
-      expect(defaults).toMatchObject({
-        1: 18740,
-        2: 0,
-        3: 0,
-        4: 60
-      })
-    })
-  })
-
   describe('getElementDefault', () => {
     it('returns default value for an element with a default', () => {
       const calculator = shallow(<Calculator />)

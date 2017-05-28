@@ -1,71 +1,42 @@
 import React, { Component } from 'react'
 
-import calculator from '../img/calc.png'
+import calculatorLogo from '../img/calc.png'
 import '../css/Calculator.css'
 
-import Dropdown from './Dropdown.js'
-import Radio from './Radio.js'
-import Checkbox from './Checkbox.js'
-import Results from './Results.js'
-import Slider from './Slider.js'
+import Components from '../utils/Components.js'
+import Results from '../components/Results.js'
 
 class Calculator extends Component {
   constructor(props) {
     super(props)
-    this.config = this.assignElemIds(require('../../elements-config.json'))
-    let elems = this.getElementDefaults()
-    let total = this.calculateTotal(elems)
-
-    this.state = { total: total, elements: elems }
     this.updateTotal = this.updateTotal.bind(this)
+    this.config = require('../../elements-config.json')
 
-    // Used for dynamically rendering components
-    this.components = {
-        dropdown: Dropdown,
-        radio: Radio,
-        checkbox: Checkbox,
-        results: Results,
-        slider: Slider
+    const elementDefaults = this.config.elements.map(this.getElementDefault)
+    const total = this.calculateTotal(elementDefaults)
+    this.state = { elements: elementDefaults, total: total }
+  }
+
+  getElementDefault(element) {
+    if (element['type'].toLowerCase() === 'slider') {
+      return element['default'] * element['conversionRate']
+    }
+    else {
+      return element['options'][element.default] || 0
     }
   }
 
-  assignElemIds(config) {
-    config.elements.forEach((elem, i) => {
-      elem.id = i
-      config.elements[i] = elem
-    })
-    return config
-  }
-
-  updateTotal(newValue, caller) {
-    const newStateElems = Object.assign(this.state.elements, { [caller]: newValue })
-    const newTotal = this.calculateTotal(newStateElems)
-
-    this.setState({ elements: newStateElems, total: newTotal })
-  }
-
-  calculateTotal(stateElems) {
+  calculateTotal(stateElements) {
     const INITIAL_VALUE = 0
-    return Object.entries(stateElems)
+    return Object.entries(stateElements)
       .map(([name, value]) => value)
       .reduce((acc, value) => acc + value, INITIAL_VALUE)
   }
 
-  getElementDefaults() {
-    let elemDefaults = {}
-    this.config.elements.forEach((element) =>
-      elemDefaults[element.id] = this.getElementDefault(element)
-    )
-    return elemDefaults
-  }
-
-  getElementDefault(elem) {
-    if (elem['type'].toLowerCase() === 'slider') {
-      return elem['default'] * elem['conversionRate']
-    }
-    else {
-      return elem['options'][elem.default] || 0
-    }
+  updateTotal(newValue, caller) {
+    const newStateElements = Object.assign(this.state.elements, { [caller]: newValue })
+    const newTotal = this.calculateTotal(newStateElements)
+    this.setState({ elements: newStateElements, total: newTotal })
   }
 
   render() {
@@ -73,7 +44,7 @@ class Calculator extends Component {
       <div className='Calculator'>
         <div className='Calculator-header'>
           <h1 className='Calculator-title'>
-            <img src={calculator} className='Calculator-logo' alt='logo' />
+            <img src={calculatorLogo} className='Calculator-logo' alt='logo' />
             &nbsp; Cost Calculator
           </h1>
         </div>
@@ -84,10 +55,10 @@ class Calculator extends Component {
           </p>
         </div>
 
-        {this.config.elements.map((configElement) => {
-          const ElementTag = this.components[configElement.type]
-          return <ElementTag key={configElement.id}
-                    unique={configElement.id}
+        {this.config.elements.map((configElement, i) => {
+          const ElementTag = Components[configElement.type]
+          return <ElementTag key={i}
+                    unique={i}
                     config={configElement}
                     onUpdate={this.updateTotal} />
         })}
