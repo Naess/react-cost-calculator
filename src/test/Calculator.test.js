@@ -4,42 +4,50 @@ import Calculator from '../components/Calculator'
 import { shallow, mount } from 'enzyme';
 
 const testElements = {
-  "model": {
-    "title": "Model",
-    "type": "dropdown",
-    "options": {
-      "LX": 18740,
-      "EX": 21140,
-      "EX-T": 21500
+  "elements": [
+    {
+      "id": 1,
+      "title": "Model",
+      "type": "dropdown",
+      "options": {
+        "LX": 18740,
+        "EX": 21140,
+        "EX-T": 21500
+      },
+      "default": "LX"
     },
-    "default": "LX"
-  },
-  "powertrain": {
-    "title": "Powertrain",
-    "type": "radio",
-    "options": {
-      "6-Speed Manual": 0,
-      "CVT": 800
+    {
+      "id": 2,
+      "title": "Powertrain",
+      "type": "radio",
+      "options": {
+        "6-Speed Manual": 0,
+        "CVT": 800
+      },
+      "default": "6-Speed Manual"
     },
-    "default": "6-Speed Manual"
-  },
-  "extras": {
-    "title": "Extras",
-    "type": "checkbox",
-    "options": {
-      "Body Side Molding": 217,
-      "Car Cover": 230,
-      "Decklid Spoiler": 299
+    {
+      "id": 3,
+      "title": "Extras",
+      "type": "checkbox",
+      "options": {
+        "Body Side Molding": 217,
+        "Car Cover": 230,
+        "Decklid Spoiler": 299
+      }
+    },
+    {
+      "id": 4,
+      "title": "MPG",
+      "type": "slider",
+      "min": 5,
+      "max": 60,
+      "step": 1,
+      "default": 30,
+      "conversionRate": 2
     }
-  },
-  "mpg": {
-    "title": "MPG",
-    "type": "slider",
-    "min": 5,
-    "max": 60,
-    "default": 30,
-    "conversionRate": 2
-  }
+  ],
+
 }
 
 describe('Calculator', () => {
@@ -97,14 +105,14 @@ describe('Calculator', () => {
   describe('getElementDefaults', () => {
     it('gets the elements with default from the element config', () => {
       const calculator = shallow(<Calculator />)
-      calculator.instance().elements = testElements
+      calculator.instance().config = testElements
 
       const defaults = calculator.instance().getElementDefaults()
       expect(defaults).toMatchObject({
-        model: 18740,
-        powertrain: 0,
-        extras: 0,
-        mpg: 60
+        1: 18740,
+        2: 0,
+        3: 0,
+        4: 60
       })
     })
   })
@@ -112,7 +120,7 @@ describe('Calculator', () => {
   describe('getElementDefault', () => {
     it('returns default value for an element with a default', () => {
       const calculator = shallow(<Calculator />)
-      calculator.instance().elements = testElements
+      calculator.instance().config = testElements
 
       const defaultValue = calculator.instance().getElementDefault({
         title: 'Powertrain',

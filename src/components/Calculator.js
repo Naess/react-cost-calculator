@@ -12,12 +12,20 @@ import Slider from './Slider.js'
 class Calculator extends Component {
   constructor(props) {
     super(props)
-    this.elements = require('../../elements-config.json')
+    this.config = require('../../elements-config.json')
     let elems = this.getElementDefaults()
     let total = this.calculateTotal(elems)
 
     this.state = { total: total, elements: elems }
     this.updateTotal = this.updateTotal.bind(this)
+
+    this.components = {
+        dropdown: Dropdown,
+        radio: Radio,
+        checkbox: Checkbox,
+        results: Results,
+        slider: Slider
+    }
   }
 
   updateTotal(newValue, caller) {
@@ -36,11 +44,10 @@ class Calculator extends Component {
 
   getElementDefaults() {
     let elemDefaults = {}
-    for (let element in this.elements) {
-      let elem = this.elements[element]
-      elemDefaults[element] = this.getElementDefault(elem)
-    }
-    return elemDefaults
+    this.config.elements.forEach((element) => {
+      elemDefaults[element.id] = this.getElementDefault(element)
+    })
+    return elemDefaults;
   }
 
   getElementDefault(elem) {
@@ -67,21 +74,14 @@ class Calculator extends Component {
              in real-time as the user changes input values.
           </p>
         </div>
-        <Dropdown unique='model'
-                  config={this.elements['model']}
-                  onUpdate={this.updateTotal} />
 
-        <Radio unique='powertrain'
-               config={this.elements['powertrain']}
-               onUpdate={this.updateTotal} />
-
-        <Checkbox unique='extras'
-                  config={this.elements['extras']}
-                  onUpdate={this.updateTotal}/>
-
-        <Slider unique='mpg'
-                config={this.elements['mpg']}
-                onUpdate={this.updateTotal} />
+        {this.config.elements.map((configElement) => {
+          const ElementTag = this.components[configElement.type]
+          return <ElementTag key={configElement.id}
+                    unique={configElement.id}
+                    config={configElement}
+                    onUpdate={this.updateTotal} />
+        })}
 
         <Results title='Total:' total={this.state.total} />
 
