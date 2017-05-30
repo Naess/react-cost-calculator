@@ -2,53 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Calculator from '../components/Calculator'
 import { shallow, mount } from 'enzyme';
-
-const testElements = {
-  "elements": [
-    {
-      "id": 1,
-      "title": "Model",
-      "type": "dropdown",
-      "options": {
-        "LX": 18740,
-        "EX": 21140,
-        "EX-T": 21500
-      },
-      "default": "LX"
-    },
-    {
-      "id": 2,
-      "title": "Powertrain",
-      "type": "radio",
-      "options": {
-        "6-Speed Manual": 0,
-        "CVT": 800
-      },
-      "default": "6-Speed Manual"
-    },
-    {
-      "id": 3,
-      "title": "Extras",
-      "type": "checkbox",
-      "options": {
-        "Body Side Molding": 217,
-        "Car Cover": 230,
-        "Decklid Spoiler": 299
-      }
-    },
-    {
-      "id": 4,
-      "title": "MPG",
-      "type": "slider",
-      "min": 5,
-      "max": 60,
-      "step": 1,
-      "default": 30,
-      "conversionRate": 2
-    }
-  ],
-
-}
+import allElementsConfig from './Configs.js'
 
 describe('Calculator', () => {
   it('renders without crashing', () => {
@@ -58,13 +12,13 @@ describe('Calculator', () => {
   describe('updateTotal', () => {
     it('updates the state when an element value changes', () => {
       const calculator = shallow(<Calculator />)
-      const prevStateElems = calculator.instance().state.elements = {
+      calculator.instance().state.elements = {
         model: 18740,
         powertrain: 0,
         extras: 230,
         mpg: 60
       }
-      const options = calculator.instance().options = testElements
+      calculator.instance().options = allElementsConfig
 
       const caller = 'model'
       const newValue = 21140
@@ -105,7 +59,7 @@ describe('Calculator', () => {
   describe('getElementDefault', () => {
     it('returns default value for an element with a default', () => {
       const calculator = shallow(<Calculator />)
-      calculator.instance().config = testElements
+      calculator.instance().config = allElementsConfig
 
       const defaultValue = calculator.instance().getElementDefault({
         title: 'Powertrain',
@@ -121,7 +75,7 @@ describe('Calculator', () => {
 
     it('returns default value based on conversion rate for a slider element', () => {
       const calculator = shallow(<Calculator />)
-      calculator.instance().options = testElements
+      calculator.instance().options = allElementsConfig
 
       const defaultValue = calculator.instance().getElementDefault({
         title: 'MPG',
@@ -136,7 +90,7 @@ describe('Calculator', () => {
 
     it('returns the 0 for an element without a default', () => {
       const calculator = shallow(<Calculator />)
-      calculator.instance().options = testElements
+      calculator.instance().options = allElementsConfig
 
       const defaultValue = calculator.instance().getElementDefault({
         title: 'Extras',
