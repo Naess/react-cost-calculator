@@ -1,4 +1,6 @@
 # React Cost Calculator
+[![Test coverage](https://img.shields.io/codecov/c/github/Naess/react-cost-calculator/master.svg)](https://codecov.io/github/Naess/react-cost-calculator)
+
 A flexible and configurable cost calculator that updates the total in real-time as the user changes input values.
 
 Demo: https://naess.github.io/react-cost-calculator/
